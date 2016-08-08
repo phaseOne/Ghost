@@ -34,13 +34,16 @@ _.extend(PageMapGenerator.prototype, {
                     id: 0,
                     name: 'home'
                 };
-            return [homePage].concat(resp.posts);
+            var result = _.concat(resp.posts, homePage, _.values(config.channels));
+            return result;
         });
     },
 
     getUrlForDatum: function (post) {
         if (post.id === 0 && !_.isEmpty(post.name)) {
             return config.urlFor(post.name, true);
+        } else if (!_.isEmpty(post.route)) {
+          return config.getBaseUrl() + post.route;
         }
 
         return config.urlFor('post', {post: post}, true);
