@@ -43,7 +43,9 @@ channelConfig = function channelConfig() {
         }
     };
 
-    return defaults;
+    var channels = _.defaultsDeep(config.channels, defaults);
+
+    return channels;
 };
 
 module.exports.list = function list() {
